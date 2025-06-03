@@ -1,0 +1,71 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.0.0/schema.json",
+  "name": "69f01811b1df811439ba",
+  "position": {
+    "x": 54.803571016632453,
+    "y": 20.787561420101966,
+    "z": 0,
+    "height": 213.54494913377474,
+    "width": 415.75122840203932,
+    "tabOrder": 0
+  },
+  "visual": {
+    "visualType": "card",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "SQL Pulpil Register"
+                    }
+                  },
+                  "Property": "Total pupil Present"
+                }
+              },
+              "queryRef": "SQL Pulpil Register.Total pupil Present",
+              "nativeQueryRef": "Total pupil Present"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Measure": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "SQL Pulpil Register"
+                  }
+                },
+                "Property": "Total pupil Present"
+              }
+            },
+            "direction": "Descending"
+          }
+        ],
+        "isDefaultSort": true
+      }
+    },
+    "objects": {
+      "labels": [
+        {
+          "properties": {
+            "labelDisplayUnits": {
+              "expr": {
+                "Literal": {
+                  "Value": "1D"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

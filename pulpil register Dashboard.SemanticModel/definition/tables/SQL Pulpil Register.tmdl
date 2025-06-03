@@ -1,0 +1,182 @@
+table 'SQL Pulpil Register'
+	lineageTag: 27764427-0f7a-4571-8a25-317a80d4a313
+
+	measure 'Attendance rate' = CALCULATE(COUNTROWS('SQL Pulpil Register'[Total Attendance Record]present'
+		lineageTag: 776a7f07-627f-4666-b253-f0f0b9f55bbb
+
+	measure 'Total Attendance Record' = COUNTROWS(all)
+		lineageTag: cd284edd-096d-489f-85f1-2e72cc55b33e
+
+	measure 'All Pulpil' = CALCULATE(DISTINCTCOUNT('SQL Pulpil Register'[PupilID]),All('SQL Pulpil Register'[PupilID]))
+		formatString: #,0
+		lineageTag: 210d3f0a-dcb6-4fad-b0fd-6f43dea67b12
+
+	measure 'Total Present' = CALCULATE(COUNTROWS('SQL Pulpil Register'), 'SQL Pulpil Register'[PupilID])
+		formatString: 0
+		lineageTag: bbacde0b-111d-4f60-8061-169cd206948d
+
+	measure 'Total Absent' = CALCULATE(COUNTROWS('SQL Pulpil Register'), 'SQL Pulpil Register'[Status]) = 'SQL Pulpil Register'[not allowed in class])
+		lineageTag: e0599e07-dd88-4b47-b21c-a72d9ad6e203
+
+	measure '((Total Avalaiable student' = ```
+			
+			(CALCULATE(
+			    COUNTROWS('SQL Pulpil Register'),
+			    'SQL Pulpil Register'[Status]) = "Allowed in Class")))
+			
+			
+			```
+		lineageTag: efc1b568-198b-4810-a845-51a2724259a5
+
+	measure 'Total pupil Present' = ```
+			
+			CALCULATE(
+			    COUNTROWS('SQL Pulpil Register'),
+			    FILTER('SQL Pulpil Register', 'SQL Pulpil Register'[Status] = "Allowed in Class")
+			)
+			
+			```
+		formatString: 0
+		lineageTag: 79b3a709-02e5-4032-b659-12eaf3591dc8
+
+	measure 'Total Pulpil Absent' = ```
+			
+			CALCULATE(
+			    COUNTROWS('SQL Pulpil Register'),
+			    FILTER('SQL Pulpil Register', 'SQL Pulpil Register'[Status] = "Not allowed in class")
+			)
+			
+			```
+		formatString: 0
+		lineageTag: 97bea27b-5e46-4a8d-94a9-0e6f8cafbe4f
+
+	measure 'Total Graduated' = ```
+			
+			CALCULATE(
+			    COUNTROWS('sql pulpil register'),
+			    FILTER('sql pulpil register', 'sql pulpil register'[Status] = "Graduated")
+			)
+			
+			```
+		formatString: 0
+		lineageTag: 46b80de4-fa64-4f22-8da6-10de6e1de89f
+
+	measure 'Total Withdrawn' = ```
+			
+			CALCULATE(
+			    COUNTROWS('sql pulpil register'),
+			    FILTER('sql pulpil register', 'sql pulpil register'[Status] = "Withdrawn")
+			)
+			
+			```
+		formatString: 0
+		lineageTag: 22e1ab8b-329c-49fc-8ea6-646eb6cf8b65
+
+	measure 'Overall Attendance Rate' = ```
+			
+			DIVIDE([Total pupil Present], [Total pupil Present] + [Total Pulpil Absent], 0)
+			
+			```
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: 466e7114-ae7f-4a42-be36-674221ab6fad
+
+	measure 'Total pupil Allowed in Class' =
+			
+			CALCULATE(
+			    DISTINCTCOUNT('SQL Pulpil Register'[PupilID]),
+			    FILTER('SQL Pulpil Register', 'SQL Pulpil Register'[Status] = "Allowed in Class")
+			)
+		formatString: 0
+		lineageTag: 11c796c1-180c-447b-9bf6-410daf429451
+
+	column SnapshotDate
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: bc52999d-dcce-4999-8bc6-f3de7c8cf216
+		summarizeBy: none
+		sourceColumn: SnapshotDate
+
+		variation Variation
+			isDefault
+			relationship: 3ff9296c-973c-4c03-abc5-83c672cbeb69
+			defaultHierarchy: LocalDateTable_04f8117a-df1a-41d3-979d-475e4e518ac9.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column AcademyName
+		dataType: string
+		lineageTag: 1df38882-5aa4-4818-9cbb-88ad7d70219b
+		summarizeBy: none
+		sourceColumn: AcademyName
+
+		annotation SummarizationSetBy = Automatic
+
+	column PupilID
+		dataType: int64
+		formatString: 0
+		lineageTag: e14efd9d-85bf-47ec-8842-1b600b4b1faa
+		summarizeBy: count
+		sourceColumn: PupilID
+
+		annotation SummarizationSetBy = Automatic
+
+	column FullName
+		dataType: string
+		lineageTag: c7d07ad0-845f-481f-ab04-612452cf2be1
+		summarizeBy: none
+		sourceColumn: FullName
+
+		annotation SummarizationSetBy = Automatic
+
+	column Status
+		dataType: string
+		lineageTag: f72673fb-fc4d-4a23-8a10-9838e4d0f033
+		summarizeBy: none
+		sourceColumn: Status
+
+		annotation SummarizationSetBy = Automatic
+
+	column GradeId
+		dataType: int64
+		formatString: 0
+		lineageTag: 517f9e03-471f-479f-9b46-76b458af0fee
+		summarizeBy: count
+		sourceColumn: GradeId
+
+		annotation SummarizationSetBy = Automatic
+
+	column GradeName
+		dataType: string
+		lineageTag: a2efc5dd-6f8e-4017-8f1f-5a85ad3b062e
+		summarizeBy: none
+		sourceColumn: GradeName
+
+		annotation SummarizationSetBy = Automatic
+
+	column Stream
+		dataType: string
+		lineageTag: cbc16702-71ba-427d-bb46-2cce26571b62
+		summarizeBy: none
+		sourceColumn: Stream
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'SQL Pulpil Register' = m
+		mode: import
+		source =
+				let
+				    Source = Sql.Database("DESKTOP-0BMGDKO", "pulpilRegister", [Query="SELECT#(lf)    CAST(SnapshotDate AS DATE) AS SnapshotDate,#(lf)    AcademyName,#(lf)    PupilID,#(lf)    #(lf)    -- Proper case with trimming for names#(lf)    CONCAT(#(lf)        UPPER(LEFT(LTRIM(RTRIM(FirstName)), 1)) + LOWER(SUBSTRING(LTRIM(RTRIM(FirstName)), 2, LEN(FirstName))),#(lf)        ' ',#(lf)        UPPER(LEFT(LTRIM(RTRIM(MiddleName)), 1)) + LOWER(SUBSTRING(LTRIM(RTRIM(MiddleName)), 2, LEN(MiddleName))),#(lf)        ' ',#(lf)        UPPER(LEFT(LTRIM(RTRIM(LastName)), 1)) + LOWER(SUBSTRING(LTRIM(RTRIM(LastName)), 2, LEN(LastName)))#(lf)    ) AS FullName,#(lf)#(lf)    Status,#(lf)    GradeId,#(lf)    GradeName,#(lf)   UPPER( Stream)#(lf)#(lf)FROM [pulpilRegister].[dbo].[Attendance_Raw data]"]),
+				    #"Changed Type" = Table.TransformColumnTypes(Source,{{"SnapshotDate", type date}}),
+				    #"Replaced Value" = Table.ReplaceValue(#"Changed Type",".","",Replacer.ReplaceText,{"FullName"}),
+				    #"Trimmed Text" = Table.TransformColumns(#"Replaced Value",{{"FullName", Text.Trim, type text}}),
+				    #"Capitalized Each Word" = Table.TransformColumns(#"Trimmed Text",{{"FullName", Text.Proper, type text}}),
+				    #"Renamed Columns" = Table.RenameColumns(#"Capitalized Each Word",{{"Column1", "Stream"}})
+				in
+				    #"Renamed Columns"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

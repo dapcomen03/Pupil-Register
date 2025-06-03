@@ -1,0 +1,21 @@
+expression 'Pulpil register' =
+		let
+		    Source = Excel.Workbook(File.Contents("C:\Users\user\Documents\BI CLASS\BI Engineer Technical Test Data..xlsx"), null, true),
+		    Data_Sheet = Source{[Item="Data",Kind="Sheet"]}[Data],
+		    #"Promoted Headers" = Table.PromoteHeaders(Data_Sheet, [PromoteAllScalars=true]),
+		    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"SnapshotDate", type date}, {"AcademyName", type text}, {"PupilID", Int64.Type}, {"FirstName", type text}, {"MiddleName", type text}, {"LastName", type text}, {"Status", type text}, {"GradeId", Int64.Type}, {"GradeName", type text}, {"Stream", type text}}),
+		    #"Capitalized Each Word" = Table.TransformColumns(#"Changed Type",{{"FirstName", Text.Proper, type text}, {"MiddleName", Text.Proper, type text}, {"LastName", Text.Proper, type text}}),
+		    #"Filtered Rows" = Table.SelectRows(#"Capitalized Each Word", each ([MiddleName] <> null and [MiddleName] <> " " and [MiddleName] <> "-" and [MiddleName] <> "." and [MiddleName] <> "..") and ([LastName] <> null and [LastName] <> "                  ")),
+		    #"Trimmed Text" = Table.TransformColumns(#"Filtered Rows",{{"FirstName", Text.Trim, type text}, {"MiddleName", Text.Trim, type text}, {"LastName", Text.Trim, type text}}),
+		    #"Replaced Value" = Table.ReplaceValue(#"Trimmed Text","blank","Null",Replacer.ReplaceText,{"LastName"}),
+		    #"Filtered Rows1" = Table.SelectRows(#"Replaced Value", each true),
+		    #"Changed Type1" = Table.TransformColumnTypes(#"Filtered Rows1",{{"Stream", type text}}),
+		    #"Filtered Rows2" = Table.SelectRows(#"Changed Type1", each true)
+		in
+		    #"Filtered Rows2"
+	lineageTag: fdf98ad8-7572-42ac-a471-467e5e130065
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

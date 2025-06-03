@@ -1,0 +1,5 @@
+relationship 3ff9296c-973c-4c03-abc5-83c672cbeb69
+	joinOnDateBehavior: datePartOnly
+	fromColumn: 'SQL Pulpil Register'.SnapshotDate
+	toColumn: LocalDateTable_04f8117a-df1a-41d3-979d-475e4e518ac9.Date
+

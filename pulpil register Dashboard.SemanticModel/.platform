@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "SemanticModel",
+    "displayName": "pulpil register Dashboard"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "3c8857d8-0463-4459-8001-d735065946df"
+  }
+}
